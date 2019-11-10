@@ -12,7 +12,7 @@ import java.util.*;
 
 class Solution {
 
-	// less memory
+    // less memory
     public int[] twoSum1(int[] numbers, int target) {
         HashMap<Integer, Integer> hashMap = new HashMap<>();
         for (int i = 0; i < numbers.length; ++i) {
