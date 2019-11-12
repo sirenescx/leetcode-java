@@ -3,7 +3,7 @@ Assume we are dealing with an environment which could only store integers within
 
 class Solution {
 
-	public int reverse(int x) {
+    public int reverse1(int x) {
        int rx = 0;
         while (x != 0) {
             int pop = x % 10;
@@ -20,6 +20,15 @@ class Solution {
             rx = rx * 10 + pop;
         }
         return rx;
+    }
+	
+    public int reverse2(int x) {
+        long rx = 0;
+        while (x != 0) {
+            rx = 10 * rx + x % 10;
+            x /= 10;
+        }
+        return (rx > Integer.MAX_VALUE || rx < Integer.MIN_VALUE) ? 0 : (int) rx;
     }
     
 }
