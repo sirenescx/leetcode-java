@@ -9,6 +9,7 @@ class Solution {
 			rn += n & 1;
 			n >>>= 1;
 		}
+		
 		return rn;
     } 
     
@@ -17,9 +18,11 @@ class Solution {
         while (s.length() < 32) {
             s = "0" + s;
         }
+	    
         StringBuilder sb = new StringBuilder();
         sb.append(s);
         s = sb.reverse().toString();
+	    
         return (int)Long.parseLong(s, 2);
     }
 }
