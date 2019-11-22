@@ -1,0 +1,66 @@
+/* Given an integer array nums, find the contiguous subarray within an array (containing at least one number) which has 
+ * the largest product.
+ * Example 1:
+ * 
+ * Input: [2,3,-2,4]
+ * Output: 6
+ * Explanation: [2,3] has the largest product 6. */
+
+class Solution {
+    
+    private static int minValue(int a, int b, int c) {
+        int minAB = Integer.min(a, b);
+        return Integer.min(minAB, c);
+    }
+    
+    private static int maxValue(int a, int b, int c) {
+        int maxAB = Integer.max(a, b);
+        return Integer.max(maxAB, c);
+    }
+    
+    public int maxProduct1(int[] nums) {
+        LinkedList<Integer> dpMax = new LinkedList<>();
+        LinkedList<Integer> dpMin = new LinkedList<>();
+        int maxProduct = nums[0];
+        dpMax.add(nums[0]);
+        dpMin.add(nums[0]);
+        
+        for (int i = 1; i < nums.length; ++i) {
+            dpMax.add(maxValue(dpMax.get(i - 1) * nums[i], nums[i], dpMin.get(i - 1) * nums[i]));
+            dpMin.add(minValue(dpMin.get(i - 1) * nums[i], nums[i], dpMax.get(i - 1) * nums[i]));
+            maxProduct = Integer.max(maxProduct, dpMax.get(i));
+        }
+        
+        return maxProduct;
+    }
+    
+    public int maxProduct2(int[] nums) {
+        if (nums.length == 0) {
+            return 0;
+        }
+        
+        int maxProduct = Integer.MIN_VALUE;
+        int currentProduct = 1;
+        
+        for (int i = 0; i < nums.length; ++i) {
+            currentProduct *= nums[i];
+            maxProduct = Integer.max(maxProduct, currentProduct);
+            if (currentProduct == 0) {
+                currentProduct = 1;
+                continue;
+            }
+        }
+        
+        currentProduct = 1;
+        for (int i = nums.length-1; i >= 0; --i) {
+            currentProduct *= nums[i];
+            maxProduct = Math.max(maxProduct, currentProduct);
+            if (currentProduct == 0) {
+                currentProduct = 1;
+                continue;
+            }
+        }
+        
+        return maxProduct;
+    }
+}
